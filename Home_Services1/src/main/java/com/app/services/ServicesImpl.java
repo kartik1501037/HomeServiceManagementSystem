@@ -1,6 +1,7 @@
 package com.app.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -55,21 +56,29 @@ private IServiceRepository servicerepo;
 
 	@Override
 	public HomeService addImage(long serid, MultipartFile file) {
-
-		Images img=  new Images();
-		try {
-			img.setImpSize(file.getBytes());
-			img.setType(file.getContentType());
-			img.setName(file.getOriginalFilename());
-			System.out.println("in add image "+img);
-			imgRepo.save(img);
-			
+	    HomeService service = servicerepo.findById(serid).orElseThrow();
+	    try {
+		    Images img=  new Images();
+		    img.setImpSize(file.getBytes());
+            img.setType(file.getContentType());
+            img.setName(file.getOriginalFilename());
+		    Optional<Images> op=imgRepo.findById(serid);
+		    if(op.isPresent()) {
+		        img.setId(serid);
+//		        imgRepo.save(img);
+		        service.setServiceImage(img);
+		    }
+		    else {
+//		        imgRepo.save(img); 
+//		        HomeService service = servicerepo.findById(serid).orElseThrow();
+		        service.setServiceImage(img);
+		    }
+//		    System.out.println("in add image "+img);
 		}catch (Exception e) {
 			System.out.println("Invalid image process "+e.getMessage());
 		}
-		HomeService service = servicerepo.findById(serid).orElseThrow();
-		service.setServiceImage(img);
 		return servicerepo.save(service);
+		
 	}
 
 }

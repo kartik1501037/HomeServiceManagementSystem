@@ -1,15 +1,11 @@
 package com.app.pojos;
 
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -38,10 +34,12 @@ public class HomeService extends BaseEntity{
 	private double serviceTax;
 
 	@OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	@JoinTable(
-			name="service_img",joinColumns = {@JoinColumn(name="service_id")
-			},
-			inverseJoinColumns = {@JoinColumn(name="img_id")
-			})
+	@JoinColumn(name="img_id",referencedColumnName = "id")
 	private Images serviceImage;
+//	@JoinTable(
+//			name="service_img",joinColumns = {@JoinColumn(name="service_id")
+//			},
+//			inverseJoinColumns = {@JoinColumn(name="img_id")
+//			})
+	
 }
