@@ -116,4 +116,11 @@ public class Usercontroller {
     {
 	    return userService.changepassword(user);
     }
+	
+	@PostMapping("/forgetpassword/gar")
+    public ResponseEntity<?> resetPa(@RequestBody User user)
+    {
+        return userService.changepassword(user);
+    }
+	
 }
