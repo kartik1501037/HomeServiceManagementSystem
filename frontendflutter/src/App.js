@@ -13,8 +13,7 @@ import AvailableServices from "./pages/user/availableservice";
 import Signup from "./pages/user/signup";
 import Signin from "./pages/user/signin";
 import ForgotPassword from "./pages/user/forgotpassword";
-import ResetPassword from "./pages/user/resetpassword";
-import Search from "./pages/search";
+
 import Service from "./pages/admin/services";
 import AddService from "./pages/admin/addservice";
 import ServiceList from "./pages/admin/servicelist";
@@ -55,8 +54,6 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
-        <Route path="/search" element={<Search />} />
         <Route path="/services" element={<Protected cmp={< Service />} />} />
         <Route path="/add-services" element={<Protected cmp={<AddService />} />} />
         <Route path="/services-list" element={<Protected cmp={<ServiceList />} />} />

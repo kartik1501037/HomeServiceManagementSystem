@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
@@ -11,10 +12,8 @@ import config from '../config';
 export default function AvailableService() {
   const [MyServices, setMyServices] = useState([]);
   //const navigate =useNavigate();
-
   useEffect(() => {
     servicelist();
-
   }, []);
 
   const servicelist = () => {
@@ -25,7 +24,6 @@ export default function AvailableService() {
       .get(url)
       .then((response) => {
         const res = response.data;
-        console.log("result", res);
         setMyServices(res)
       })
   }
@@ -97,14 +95,9 @@ export default function AvailableService() {
 const styles = {
 
 
-  // container1: {
-  //   backgroundImage: `url(${img})`,
-  //   backgroundPosition: "center",
-  //   backgroundSize: "cover",
-  //   backgroundRepeat: "no-repeat",
-  //   width: "100%",
-  //   height: "100vh"
-  // },
+  container1: {
+  textAlign:"center"
+  },
 
 
 };

@@ -7,6 +7,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -15,6 +16,8 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -59,6 +62,10 @@ public class User extends BaseEntity {
 	private String Pincode;
 	@Column(nullable = false, columnDefinition = "varchar(40) default 'USER'")
 	private String role = "USER";
+	
+	@OneToOne(mappedBy = "user")
+	@JsonIgnoreProperties({"order","service","user"})
+	private Feedback feedback;
 
 
 

@@ -2,12 +2,12 @@ import React from "react";
 import { useEffect, useState } from "react";
 import img from "../../images/walljpg.jpg";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { json, useNavigate } from "react-router-dom";
 //import user from "../../images/user.jpg";
 import config from "../config";
 
 export default function UserDetails() {
-  const id = sessionStorage.getItem("user");
+  const id = JSON.parse(localStorage.getItem("user_details")).id;
   const navigate = useNavigate();
   const [user, setUser] = useState();
   useEffect(() => {
@@ -17,10 +17,8 @@ export default function UserDetails() {
   const userdetails = () => {
 
     const url = config.serverURL + `/user/${id}`;
-
     axios.get(url).then((response) => {
       const result = response.data;
-      console.log("result", result);
       setUser(result);
     });
   };
@@ -30,7 +28,6 @@ export default function UserDetails() {
   };
   const showorder = (id) => {
     //show customer specifc order
-    console.log("id", id);
     navigate("/custorder/" + user?.id);
   };
   return (

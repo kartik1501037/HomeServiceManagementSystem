@@ -17,7 +17,6 @@ export default function UpdateUser() {
   const [confirmPassword, setconfirmPassword] = useState("");
 
   useEffect(() => {
-
     userdetails();
   }, []);
 
@@ -70,7 +69,6 @@ export default function UpdateUser() {
           }}
           className="form-control"
           type="text"
-
         />
         <label>Last Name</label>
         <input

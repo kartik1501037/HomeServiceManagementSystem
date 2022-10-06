@@ -184,7 +184,7 @@ const OfferZone = () => {
               </div>
             </div>
 
-            <div class="col-md-6 col-lg-4 col-xl-3">
+            <div className="col-md-6 col-lg-4 col-xl-3">
               <div id="product-6" className="single-product">
                 <div className="part-1">
                   <span className="discount">5% off</span>

@@ -10,7 +10,6 @@ export default function CustOrder() {
     const [Orders,SetOrders]=useState([])
 
     useEffect(()=>{
-        console.log(params.id)
         orderlist();
         
         },[])
@@ -21,8 +20,7 @@ export default function CustOrder() {
           axios.get(url).
           then(response=>{
             const result = response.data
-            console.log(result)
-      
+  
             SetOrders(result)
           })
         }

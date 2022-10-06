@@ -107,7 +107,7 @@ const Navbar = () => {
                     // go to signin page
                     navigate("/signin");
                     //if user login 
-                    sessionStorage.removeItem("user");
+                    localStorage.removeItem("user_details");
                     // send the action to let the user signout
                     dispatch(signout());
                   }}

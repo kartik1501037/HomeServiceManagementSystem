@@ -21,21 +21,18 @@ export default function BookService() {
     axios.get(url).then(response => {
       //console.log(response.data);
       const result = response.data;
-      console.log("result", result);
       SetService(result);
     });
   };
 
   const bookservice = () => {
     const custid = sessionStorage.getItem("user");
-    console.log("custid", custid);
     const url =
       config.serverURL + `/user/${custid}/services/${params.id}/placeorder`;
 
     const body = {};
     axios.post(url, body).then(response => {
       const result = response.data;
-      console.log("result", result);
 
       if ((result["status"] = "success")) {
         toast.success("Service Booked");

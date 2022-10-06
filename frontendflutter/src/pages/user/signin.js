@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import Images from "../../images/image1_location.png";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 // import Dropdown from 'react-bootstrap/Dropdown';
@@ -20,6 +20,21 @@ const Signin = () => {
   const params = useParams();
   // const [role, setRole] = useState("USER")
   // const options = ["ADMIN", "EMPLOYEE", "USER"];
+
+  function checksignin(){
+    const data=JSON.parse(localStorage.getItem("user_details"));
+    if(data){
+      dispatch(signin(user));
+      toast.success(`Welcome ${data.role}`);
+      toast.success(`Welcome to ${data.firstName} ${" "} ${data.lastName} `);
+      navigate("../admin");
+      // navigate(`/home/${data.id}`)
+    }
+  }
+  useEffect(()=>{
+    checksignin()},[])
+
+  
 
   const signinUser = () => {
     if (email.length === 0) {
@@ -40,23 +55,15 @@ const Signin = () => {
         .post(url, body)
         .then(response => {
           // get the server result
-          const result = response.data;
-          if (result.role === "ADMIN") {
-            localStorage.setItem("user_details",response.data);
-            // sessionStorage.setItem("user", result.id);
-            // sessionStorage.setItem("User_Role", result.role);
-            setUser(result["data"]);
-            dispatch(signin(user));
-            toast.success("Welcome ADMIN");
+          const result = JSON.stringify(response.data);
+          localStorage.setItem("user_details",JSON.stringify(response.data))
+          dispatch(signin());
+          toast.success(`Welcome ${response.data.role}`);
+          toast.success(`Welcome to ${response.data.firstName} ${" "} ${response.data.lastName} `);
+          if(response.data.role=="ADMIN"){
             navigate("../admin");
-          } else {
-            localStorage.setItem("user_details",response.data);
-            // sessionStorage.setItem("user", result.id);
-            // sessionStorage.setItem("User_Role", result.role);
-            setUser(result["data"]);
-            dispatch(signin(user));
-            toast.success(`Welcome to ${response.data.firstName} ${" "} ${response.data.lastName} `);
-            console.error()
+          }
+          else{
             navigate("/home/" + result.id);
           }
         })

@@ -6,8 +6,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,7 +28,7 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "orders_tb")
-public class Orders extends BaseEntity {
+public class Orders extends BaseEntity{
 
 	// private String CustName; take from customer table
 	@ManyToOne
@@ -41,8 +43,8 @@ public class Orders extends BaseEntity {
 	private HomeService service;
 	@ManyToOne
 	@JoinColumn(name = "user_id", updatable = false)
-
 	private User user;
+	
 	@Column(columnDefinition = "varchar(50) default 'pending'")
 	private String status = "pending";// pending/completed
 	@CreationTimestamp
@@ -50,8 +52,16 @@ public class Orders extends BaseEntity {
 	@Column(nullable = false, updatable = false)
 	private Date bookingtime;
 
+	@OneToOne(mappedBy = "order")
+	private Feedback feedback;
+	
 	@PrePersist
 	private void onCreate() {
 		bookingtime = new Date();
+		feedback.setId(getId());
+		feedback.setService(service);
 	}
+	
+	
+	
 }

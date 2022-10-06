@@ -6,7 +6,7 @@ function Protected(props) {
     const cmp = props.cmp;
     const status = useSelector(state => state.authSlice.status)
     return (
-        <div> {status ? cmp : <Navigate to="/signin" />}{console.warn(status)}
+        <div> {status ? cmp : <Navigate to="/signin" />}
         </div>
     )
 }

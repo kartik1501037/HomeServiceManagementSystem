@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import config from "../config";
+import { toast } from "react-toastify";
 export default function ShowAllBookedServices() {
   const [Orders, SetOrders] = useState([]);
   const navigate = useNavigate();
@@ -19,21 +20,20 @@ export default function ShowAllBookedServices() {
 
     axios.get(url).then((response) => {
       const result = response.data;
-      console.log(result);
-
       SetOrders(result);
     });
   };
 
   const changestatus = (id) => {
-    console.log(id);
-
     const url = config.serverURL + `/admin/orders/updatestatus/${id}`;
-
     const body = {};
     axios.put(url, body).then((response) => {
       const result = response.data;
       console.log(result);
+    })
+    .catch((error)=>{
+      toast.info("No Booked Service")
+      navigate("")
     });
     //orderlist();
   };

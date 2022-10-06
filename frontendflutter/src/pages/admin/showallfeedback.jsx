@@ -15,7 +15,6 @@ const ShowAllFeedback = () => {
 
     axios.get(url).then((response) => {
       const res = response.data;
-      console.log(res);
       setFeedbacks(res);
     });
   };
